@@ -8,7 +8,6 @@ else
 
 #get The OS name
     os=`cat /etc/os-release | awk 'BEGIN{FS="="}/ID/{if(NR==3) print $2}'`  
-    echo " Content of os: $os"
 
 #if ArchLinux
     if [ $os == "arch" ];then
