@@ -14,12 +14,12 @@ else
     if [ $os == "arch" ];then
         # update your repositories
         echo "[*] wait a while while updating your repos ..."
-        sudo pacman -Syy > /dev/null
+        yes | pacman -Syy > /dev/null
         echo " [+] repos updated ! "
 
         # install dkms if it isn't already
         echo "[*] Installing dkms ..."
-        sudo pacman -Sy dkms > /dev/null
+        yes | pacman -Sy dkms > /dev/null
         echo "[+] dkms installed!"
 
 #if Debian based:
@@ -32,7 +32,7 @@ else
 
         #install dkms
         echo "[*] Installing dkms ..."
-        sudo apt install dkms > /dev/null
+        apt install dkms > /dev/null
         echo "[+] dkms installed !"
     fi
 
@@ -40,12 +40,12 @@ else
     cd /usr/src
 
 # if you have any other drivers installed,remove them like so:
-    rm -r rtl8812AU*/ 2> /dev/null
+    rm -r rtl8812AU*/ > /dev/null 2>&1
 
 # get latest driver from github
 
     echo "[*] Downloading drivers ..."
-    git clone https://github.com/gordboy/rtl8812au-5.6.4.2 > /dev/null
+    git clone https://github.com/gordboy/rtl8812au-5.6.4.2 > /dev/null 2>&1
     echo "[+] Drivers Downloaded ! "
 
 # move into downloaded driver folder
@@ -66,7 +66,7 @@ else
 
 # build drivers
     echo "[*]building drivers to dkms"
-    dkms build -m rtl8812au -v 5.6.4.2 > /dev/null 2>&1
+    dkms build -m rtl8812au -v 5.6.4.2 > /dev/null 
 
 # install drivers
     echo "[*]installing drivers to dkms"
