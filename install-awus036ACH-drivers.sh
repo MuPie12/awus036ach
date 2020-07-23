@@ -8,7 +8,7 @@ else
 
 #get The OS name
     os=`cat /etc/os-release | awk 'BEGIN{FS="="}/ID/{if(NR==3) print $2}'`  
-    is_os_debian_based=`cat /etc/os-release | awk 'BEGIN{FS="="}/ID_LIKE/{print $2}'`
+    is_os_debian_based=`cat /etc/os-release | awk 'BEGIN{FS="="}/ID_LIKE/{print $2}'  | grep "debian" > /dev/null  && echo "True" || echo "False"`
 
 #if ArchLinux
     if [ $os == "arch" ];then
@@ -23,7 +23,7 @@ else
         echo "[+] dkms installed!"
 
 #if Debian based:
-    elif [[ $is_os_debian_based == *"debian"* ]];then 
+    elif [[ $is_os_debian_based == "True" ]];then 
         # update the repositories
         echo "[*] updating your repos ..."
         apt update -y > /dev/null 2>&1 
@@ -35,7 +35,6 @@ else
         apt install dkms > /dev/null
         echo "[+] dkms installed !"
     fi
-
 # change directory to /usr/src
     cd /usr/src
 
