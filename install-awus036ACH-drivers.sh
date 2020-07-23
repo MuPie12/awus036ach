@@ -8,7 +8,7 @@ else
 
 #get The OS name
     os=`cat /etc/os-release | awk 'BEGIN{FS="="}/ID/{if(NR==3) print $2}'`  
-    echo " Content of os: $os"
+    is_os_debian_based=`cat /etc/os-release | awk 'BEGIN{FS="="}/ID_LIKE/{print $2}'`
 
 #if ArchLinux
     if [ $os == "arch" ];then
@@ -23,7 +23,7 @@ else
         echo "[+] dkms installed!"
 
 #if Debian based:
-    elif [ $os == "pop" ] || [ $os == "ubuntu" ] || [ $os == "debian" ];then
+    elif [[ $is_os_debian_based == *"debian"* ]];then 
         # update the repositories
         echo "[*] updating your repos ..."
         apt update -y > /dev/null 2>&1 
